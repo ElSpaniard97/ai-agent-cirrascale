@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Troubleshooting Agent</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">AT</div>
+      <div>
+        <h1>AI Troubleshooting Agent</h1>
+        <p class="sub">Intake → Clarify → Diagnose → Steps → Report</p>
+      </div>
+    </div>
+    <div class="status">
+      <span class="dot" id="modeDot"></span>
+      <span id="modeLabel">Local Playbook Mode</span>
+    </div>
+  </header>
+
+  <main class="grid">
+    <section class="card">
+      <h2>1) Intake</h2>
+      <label class="label">Issue Category</label>
+      <select id="category">
+        <option value="network">Network</option>
+        <option value="hardware">Hardware</option>
+        <option value="os">OS</option>
+        <option value="account">Account / Access</option>
+        <option value="app">Application</option>
+      </select>
+
+      <label class="label">Device / OS</label>
+      <div class="row">
+        <select id="device">
+          <option value="macos">macOS</option>
+          <option value="windows">Windows</option>
+          <option value="linux">Linux</option>
+        </select>
+        <select id="context">
+          <option value="onsite">Onsite</option>
+          <option value="remote">Remote</option>
+        </select>
+      </div>
+
+      <label class="label">Problem Description</label>
+      <textarea id="description" rows="6" placeholder="Describe symptoms, error messages, what changed, and impact..."></textarea>
+
+      <div class="row">
+        <button id="analyzeBtn" class="primary">Analyze</button>
+        <button id="resetBtn" class="ghost">Reset</button>
+      </div>
+
+      <div class="hint">
+        Tip: Include exact error text, timestamps, and what was attempted.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>2) Clarifying Questions</h2>
+      <div id="questions" class="stack muted">
+        Run “Analyze” to generate questions.
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>3) Diagnosis & Recommended Steps</h2>
+      <div id="output" class="stack muted">
+        Recommendations will appear here.
+      </div>
+
+      <div class="row">
+        <button id="exportBtn" class="secondary" disabled>Export Report</button>
+        <button id="copyBtn" class="ghost" disabled>Copy</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Playbook Hits</h2>
+      <div id="playbookHits" class="stack muted">
+        Matching procedures will show here.
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>Static GitHub Pages UI. Optional backend supported.</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
