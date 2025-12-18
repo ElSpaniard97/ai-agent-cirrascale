@@ -7,7 +7,7 @@ Designed to standardize diagnostics and safely gate remediation across networkin
 https://chatgpt.com/g/g-69441b1b5d0c81918300df5e63b0e079-ai-infrastructure-troubleshooting-agent
 
 🔗 Live Showcase Site (GitHub Pages):
-https://<your-username>.github.io/<your-repo-name>/
+https://elspaniard97.github.io/ai-agent-cirrascale/
 
 Overview
 
