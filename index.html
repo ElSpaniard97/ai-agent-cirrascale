@@ -3,101 +3,352 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AI Agent Cirrascale</title>
-  <link rel="stylesheet" href="./styles.css" />
+  <meta name="description" content="Showcase for a change-controlled infrastructure troubleshooting AI agent (servers, switches, routers, scripts, and hardware)." />
+  <title>Infrastructure Troubleshooting Agent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-  <header class="topbar">
-    <div class="brand">
-      <div class="logo" aria-hidden="true">CS</div>
-      <div>
-        <div class="title">AI Agent Cirrascale</div>
-        <div class="subtitle">Browser-based AI agent • GitHub Pages</div>
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">AI</div>
+        <div>
+          <div class="brand-title">Infrastructure Troubleshooting Agent</div>
+          <div class="brand-subtitle">Servers • Switches • Routers • Scripts • Hardware</div>
+        </div>
       </div>
-    </div>
 
-    <div class="actions">
-      <select id="providerSelect" class="select" aria-label="Model provider">
-        <option value="demo">Demo (offline)</option>
-        <option value="openai_compatible">OpenAI-Compatible (via proxy)</option>
-      </select>
+      <nav class="nav">
+        <a href="#capabilities">Capabilities</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#prompts">Prompts</a>
+        <a href="#faq">FAQ</a>
+      </nav>
 
-      <button id="clearBtn" class="btn btn-secondary" type="button">Clear</button>
-      <button id="settingsBtn" class="btn" type="button">Settings</button>
+      <div class="header-actions">
+        <button class="btn btn-ghost" id="themeToggle" type="button" aria-label="Toggle theme">Theme</button>
+        <a class="btn btn-primary" id="agentLinkTop" href="https://chatgpt.com/g/YOUR_AGENT_ID" target="_blank" rel="noreferrer">
+          Launch Agent
+        </a>
+      </div>
     </div>
   </header>
 
-  <main class="layout">
-    <section class="chat">
-      <div id="messages" class="messages" aria-live="polite"></div>
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="badge">Published Agent • Change-Controlled Remediation</p>
+          <h1>Operational-grade troubleshooting with safe, approval-gated fixes.</h1>
+          <p class="lead">
+            This agent standardizes how incidents are triaged, diagnosed, and remediated across networking, servers,
+            automation scripts, and hardware components. It uses a two-stage approach: <strong>Diagnostics</strong>
+            (read-only) and <strong>Remediation</strong> (requires approval).
+          </p>
 
-      <form id="composer" class="composer" autocomplete="off">
-        <textarea
-          id="input"
-          class="input"
-          placeholder="Message Cirrascale…"
-          rows="1"
-          required
-        ></textarea>
+          <div class="cta-row">
+            <a class="btn btn-primary btn-lg" id="agentLinkHero" href="https://chatgpt.com/g/YOUR_AGENT_ID" target="_blank" rel="noreferrer">
+              Launch Agent
+            </a>
+            <button class="btn btn-secondary btn-lg" id="copyAgentLink" type="button">
+              Copy Agent Link
+            </button>
+          </div>
 
-        <button id="sendBtn" class="btn btn-primary" type="submit">Send</button>
-      </form>
+          <div class="mini-stats">
+            <div class="stat">
+              <div class="stat-value">2-Brain</div>
+              <div class="stat-label">Diagnostics → Remediation</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">Safe-by-default</div>
+              <div class="stat-label">Read-only first</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">Multi-domain</div>
+              <div class="stat-label">Net • OS • Scripts • HW</div>
+            </div>
+          </div>
+        </div>
 
-      <div class="hint">
-        Tip: Press <kbd>Enter</kbd> to send, <kbd>Shift</kbd>+<kbd>Enter</kbd> for a newline.
+        <div class="hero-card" role="region" aria-label="Agent overview card">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">What it does</div>
+              <div class="card-subtitle">High-signal outputs you can paste into tickets.</div>
+            </div>
+
+            <ul class="checklist">
+              <li><span class="check">✓</span> Triage: impact, scope, change window</li>
+              <li><span class="check">✓</span> Hypothesis-driven diagnostics</li>
+              <li><span class="check">✓</span> Evidence requests (commands + expected output)</li>
+              <li><span class="check">✓</span> Remediation plan + rollback + validation</li>
+              <li><span class="check">✓</span> Approval gate before risky steps</li>
+            </ul>
+
+            <div class="card-footer">
+              <div class="muted">Tip: Paste logs, screenshots, or full scripts. The agent will route automatically.</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <aside class="panel">
-      <div class="panel-card">
-        <h2>Agent Profile</h2>
-        <label class="label">System instructions</label>
-        <textarea id="systemPrompt" class="textarea" rows="10"></textarea>
+    <!-- CAPABILITIES -->
+    <section class="section" id="capabilities">
+      <div class="container">
+        <div class="section-head">
+          <h2>Capabilities</h2>
+          <p class="muted">Four domains supported with consistent outputs and escalation-ready summaries.</p>
+        </div>
 
-        <label class="label">Memory</label>
-        <div class="muted">
-          Conversation is stored locally in your browser (LocalStorage) unless you clear it.
+        <div class="grid-4">
+          <article class="feature">
+            <h3>Networking</h3>
+            <p>Switch/router triage, interface errors, VLAN/trunk, STP, routing adjacencies, packet loss, MTU.</p>
+            <div class="tags">
+              <span class="tag">L1–L4 isolation</span>
+              <span class="tag">Cisco-style CLI</span>
+              <span class="tag">Routing/Layer2</span>
+            </div>
+          </article>
+
+          <article class="feature">
+            <h3>Server OS / Services</h3>
+            <p>Linux/Windows diagnostics: CPU/memory/disk, services, logs, ports, DNS, TLS, connectivity.</p>
+            <div class="tags">
+              <span class="tag">Linux</span>
+              <span class="tag">Windows</span>
+              <span class="tag">Service health</span>
+            </div>
+          </article>
+
+          <article class="feature">
+            <h3>Script Troubleshooting</h3>
+            <p>Paste errors, screenshots, or full scripts. Detects PowerShell, Python, Bash, Ansible, Terraform, YAML.</p>
+            <div class="tags">
+              <span class="tag">Stack traces</span>
+              <span class="tag">Root cause</span>
+              <span class="tag">Fixed snippet</span>
+            </div>
+          </article>
+
+          <article class="feature">
+            <h3>Hardware / Components</h3>
+            <p>Vendor-aware triage: iDRAC/iLO/IPMI, PSU/thermals/RAID/memory. Safe escalation and RMA guidance.</p>
+            <div class="tags">
+              <span class="tag">Dell</span>
+              <span class="tag">HPE</span>
+              <span class="tag">IPMI/BMC</span>
+            </div>
+          </article>
         </div>
       </div>
+    </section>
 
-      <div class="panel-card">
-        <h2>Provider Settings</h2>
+    <!-- WORKFLOW -->
+    <section class="section" id="workflow">
+      <div class="container">
+        <div class="section-head">
+          <h2>Two-brain workflow</h2>
+          <p class="muted">Diagnostics is read-only. Remediation is approval-gated and includes rollback + validation.</p>
+        </div>
 
-        <div id="openaiSettings" class="provider">
-          <label class="label">API base URL (proxy)</label>
-          <input id="apiBaseUrl" class="text" placeholder="https://your-proxy.example.com" />
+        <div class="workflow">
+          <div class="workflow-copy">
+            <div class="workflow-step">
+              <div class="step-num">1</div>
+              <div>
+                <h3>Diagnostics (no approval required)</h3>
+                <p>Collect facts, isolate layer/domain, propose likely causes, provide safe checks and evidence requests.</p>
+                <ul class="bullets">
+                  <li>Symptoms → Likely Causes → Diagnostics → Interpretation</li>
+                  <li>Expected outputs (“good vs bad” patterns)</li>
+                  <li>Produces a proposed remediation plan</li>
+                </ul>
+              </div>
+            </div>
 
-          <label class="label">Model</label>
-          <input id="model" class="text" placeholder="gpt-4.1-mini (example)" />
+            <div class="workflow-step">
+              <div class="step-num">2</div>
+              <div>
+                <h3>Remediation (approval required)</h3>
+                <p>Only after explicit user intent + approval. Outputs change steps with risk, rollback, and validation.</p>
+                <ul class="bullets">
+                  <li>Change Summary → Preconditions → Steps</li>
+                  <li>Rollback/backout plan</li>
+                  <li>Validation checklist + post-change notes</li>
+                </ul>
+              </div>
+            </div>
+          </div>
 
-          <div class="muted">
-            Do not put API keys in the browser. Use a serverless proxy that injects secrets server-side.
+          <div class="workflow-diagram" aria-label="Workflow diagram">
+            <!-- SVG diagram (no external assets needed) -->
+            <svg viewBox="0 0 860 360" role="img" aria-label="Diagnostics to approval to remediation flow">
+              <defs>
+                <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="currentColor" stop-opacity="0.18"/>
+                  <stop offset="100%" stop-color="currentColor" stop-opacity="0.06"/>
+                </linearGradient>
+              </defs>
+
+              <rect x="20" y="30" width="250" height="110" rx="18" fill="url(#g)" stroke="currentColor" stroke-opacity="0.22"/>
+              <text x="45" y="75" fill="currentColor" font-size="18" font-weight="600">Brain: Diagnostics</text>
+              <text x="45" y="105" fill="currentColor" font-size="13" opacity="0.8">Read-only checks + plan</text>
+
+              <rect x="310" y="30" width="250" height="110" rx="18" fill="url(#g)" stroke="currentColor" stroke-opacity="0.22"/>
+              <text x="335" y="75" fill="currentColor" font-size="18" font-weight="600">Intent Gate</text>
+              <text x="335" y="105" fill="currentColor" font-size="13" opacity="0.8">User requests changes?</text>
+
+              <rect x="600" y="30" width="240" height="110" rx="18" fill="url(#g)" stroke="currentColor" stroke-opacity="0.22"/>
+              <text x="625" y="75" fill="currentColor" font-size="18" font-weight="600">Approval Required</text>
+              <text x="625" y="105" fill="currentColor" font-size="13" opacity="0.8">Human confirmation</text>
+
+              <rect x="600" y="200" width="240" height="110" rx="18" fill="url(#g)" stroke="currentColor" stroke-opacity="0.22"/>
+              <text x="625" y="245" fill="currentColor" font-size="18" font-weight="600">Brain: Remediation</text>
+              <text x="625" y="275" fill="currentColor" font-size="13" opacity="0.8">Steps + rollback + validation</text>
+
+              <!-- arrows -->
+              <path d="M270 85 L310 85" stroke="currentColor" stroke-opacity="0.4" stroke-width="3" fill="none"/>
+              <polygon points="310,85 298,78 298,92" fill="currentColor" opacity="0.4"/>
+
+              <path d="M560 85 L600 85" stroke="currentColor" stroke-opacity="0.4" stroke-width="3" fill="none"/>
+              <polygon points="600,85 588,78 588,92" fill="currentColor" opacity="0.4"/>
+
+              <path d="M720 140 L720 200" stroke="currentColor" stroke-opacity="0.4" stroke-width="3" fill="none"/>
+              <polygon points="720,200 713,188 727,188" fill="currentColor" opacity="0.4"/>
+
+              <!-- reject/else -->
+              <path d="M435 140 C435 220, 120 220, 120 140" stroke="currentColor" stroke-opacity="0.22" stroke-width="3" fill="none"/>
+              <text x="110" y="240" fill="currentColor" font-size="12" opacity="0.65">Else/Reject → stop or continue diagnosing</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROMPTS -->
+    <section class="section" id="prompts">
+      <div class="container">
+        <div class="section-head">
+          <h2>Prompt library</h2>
+          <p class="muted">Click a prompt to copy it, then paste into the agent.</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="prompt-card">
+            <div class="prompt-head">
+              <h3>Networking</h3>
+              <button class="btn btn-ghost btn-sm copy-btn" data-copy="Network uplink is up/up but users in VLAN 20 cannot reach the gateway. Here are outputs: show ip interface brief: <paste>; show interface <uplink>: <paste>; show spanning-tree vlan 20: <paste>. Diagnose read-only first.">Copy</button>
+            </div>
+            <pre class="prompt-body">Network uplink is up/up but users in VLAN 20 cannot reach the gateway. Here are outputs:
+show ip interface brief: &lt;paste&gt;
+show interface &lt;uplink&gt;: &lt;paste&gt;
+show spanning-tree vlan 20: &lt;paste&gt;
+Diagnose read-only first.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-head">
+              <h3>Server OS / Services</h3>
+              <button class="btn btn-ghost btn-sm copy-btn" data-copy="Linux server is slow and intermittently unreachable. Provide triage steps and commands. Context: distro/version: <paste>, ip a: <paste>, ip r: <paste>, journalctl tail: <paste>, ss -tulpn: <paste>.">Copy</button>
+            </div>
+            <pre class="prompt-body">Linux server is slow and intermittently unreachable. Provide triage steps and commands.
+Context: distro/version: &lt;paste&gt;, ip a: &lt;paste&gt;, ip r: &lt;paste&gt;, journalctl tail: &lt;paste&gt;, ss -tulpn: &lt;paste&gt;.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-head">
+              <h3>Script / Automation</h3>
+              <button class="btn btn-ghost btn-sm copy-btn" data-copy="Troubleshoot this script error. Language/tool: <PowerShell/Python/Bash>. Execution context: <local/CI/cron>. Error output: <paste>. If needed, I can paste the full script. Provide root cause and corrected snippet.">Copy</button>
+            </div>
+            <pre class="prompt-body">Troubleshoot this script error. Language/tool: &lt;PowerShell/Python/Bash&gt;.
+Execution context: &lt;local/CI/cron&gt;. Error output: &lt;paste&gt;.
+If needed, I can paste the full script. Provide root cause and corrected snippet.</pre>
+          </div>
+
+          <div class="prompt-card">
+            <div class="prompt-head">
+              <h3>Hardware / Components</h3>
+              <button class="btn btn-ghost btn-sm copy-btn" data-copy="Server hardware alert. Vendor/model: <paste>. BMC: <iDRAC/iLO/IPMI>. Symptoms: <paste>. Evidence: SEL/Lifecycle logs: <paste>, sensor readings: <paste>, RAID status: <paste>. Provide safe diagnostics and escalation guidance.">Copy</button>
+            </div>
+            <pre class="prompt-body">Server hardware alert. Vendor/model: &lt;paste&gt;. BMC: &lt;iDRAC/iLO/IPMI&gt;.
+Symptoms: &lt;paste&gt;. Evidence: SEL/Lifecycle logs: &lt;paste&gt;, sensor readings: &lt;paste&gt;, RAID status: &lt;paste&gt;.
+Provide safe diagnostics and escalation guidance.</pre>
           </div>
         </div>
 
-        <div id="demoSettings" class="provider">
-          <div class="muted">
-            Demo mode runs fully offline to validate UI/flows. Switch provider when your proxy is ready.
+        <div class="callout">
+          <div class="callout-title">Want a one-click “Launch + Prompt” workflow?</div>
+          <div class="callout-body">
+            GitHub Pages can’t embed the agent UI, but you can link to the agent and keep prompt templates here for fast copy/paste during incidents.
           </div>
         </div>
-
-        <button id="saveSettingsBtn" class="btn btn-secondary" type="button">Save settings</button>
       </div>
-    </aside>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-head">
+          <h2>FAQ</h2>
+          <p class="muted">Common questions about using the agent in real operational workflows.</p>
+        </div>
+
+        <div class="faq">
+          <details>
+            <summary>Can the agent run commands on my systems?</summary>
+            <div class="faq-content">
+              No. It provides guidance, commands to run, and interpretation patterns. You remain in control of execution.
+            </div>
+          </details>
+
+          <details>
+            <summary>Why is remediation approval-gated?</summary>
+            <div class="faq-content">
+              To match enterprise change-control practices. Diagnostics remains read-only; remediation is only provided after explicit intent and approval.
+            </div>
+          </details>
+
+          <details>
+            <summary>Can I paste screenshots of errors?</summary>
+            <div class="faq-content">
+              Yes. Paste screenshots or text. The agent will extract key details and proceed through the appropriate troubleshooting workflow.
+            </div>
+          </details>
+
+          <details>
+            <summary>What should I save in tickets?</summary>
+            <div class="faq-content">
+              Copy the Diagnostics section (symptoms, scope, tests run, interpretations) and the Remediation section (steps, rollback, validation) when used.
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div>
+          <div class="footer-title">Infrastructure Troubleshooting Agent</div>
+          <div class="muted">A change-controlled operational assistant for IT troubleshooting.</div>
+        </div>
+        <div class="footer-links">
+          <a href="#top">Back to top</a>
+          <a id="agentLinkFooter" href="https://chatgpt.com/g/YOUR_AGENT_ID" target="_blank" rel="noreferrer">Launch Agent</a>
+        </div>
+      </div>
+    </footer>
   </main>
 
-  <dialog id="settingsDialog" class="dialog">
-    <form method="dialog" class="dialog-inner">
-      <h2>Settings</h2>
-      <p class="muted">
-        Settings are stored locally in your browser. For GitHub Pages deployments, this is expected.
-      </p>
-      <menu class="dialog-actions">
-        <button class="btn btn-secondary" value="cancel">Close</button>
-      </menu>
-    </form>
-  </dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="./app.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
