@@ -1270,12 +1270,19 @@ messageEl?.addEventListener("keydown", (e) => {
 function setupSidebarToggle() {
   const sidebar = document.querySelector('.sidebar');
   const sidebarToggle = document.getElementById('sidebarToggle');
+  const sidebarFloatingToggle = document.getElementById('sidebarFloatingToggle');
   const mobileMenuBtn = document.getElementById('mobileMenuBtn');
 
-  // Desktop toggle
+  // Desktop toggle (inside sidebar)
   sidebarToggle?.addEventListener('click', () => {
     sidebar?.classList.toggle('collapsed');
     localStorage.setItem('sidebarCollapsed', sidebar?.classList.contains('collapsed'));
+  });
+
+  // Floating toggle (appears when collapsed)
+  sidebarFloatingToggle?.addEventListener('click', () => {
+    sidebar?.classList.remove('collapsed');
+    localStorage.setItem('sidebarCollapsed', 'false');
   });
 
   // Mobile toggle
