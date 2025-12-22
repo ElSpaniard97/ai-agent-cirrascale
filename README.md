@@ -4,7 +4,7 @@
 
 A production-ready web application for AI-assisted infrastructure troubleshooting, designed for real-world IT operations workflows. Enforces diagnostics before remediation, requires explicit approval for production-impacting changes, and produces clean outputs suitable for incident tickets.
 
-[![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)](https://github.com/elspaniard97/csrma-agent)
+[![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)](https://github.com/elspaniard97/imbedded-csrma-ai-agent)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 ---
@@ -90,7 +90,7 @@ A production-ready web application for AI-assisted infrastructure troubleshootin
 
 | Service | URL |
 |---------|-----|
-| **Frontend** | https://elspaniard97.github.io/csrma-agent/ |
+| **Frontend** | https://elspaniard97.github.io/imbedded-csrma-ai-agent/ |
 | **Backend** | https://imbedded-csrma-ai-agent.onrender.com |
 | **Health Check** | https://imbedded-csrma-ai-agent.onrender.com/healthz |
 
