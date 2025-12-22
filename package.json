@@ -22,7 +22,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/elspaniard97/imbedded-csrma-ai-agent.git"
+    "url": "https://github.com/elspaniard97/csrma-agent.git"
   },
   "engines": {
     "node": ">=18.0.0"
