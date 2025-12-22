@@ -4,7 +4,7 @@
 
 A production-ready web application for AI-assisted infrastructure troubleshooting, designed for real-world IT operations workflows. Enforces diagnostics before remediation, requires explicit approval for production-impacting changes, and produces clean outputs suitable for incident tickets.
 
-[![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)](https://github.com/elspaniard97/imbedded-csrma-ai-agent)
+[![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)](https://github.com/elspaniard97/csrma-agent)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 ---
@@ -90,9 +90,9 @@ A production-ready web application for AI-assisted infrastructure troubleshootin
 
 | Service | URL |
 |---------|-----|
-| **Frontend** | https://elspaniard97.github.io/imbedded-csrma-ai-agent/ |
-| **Backend** | https://imbedded-csrma-ai-agent.onrender.com |
-| **Health Check** | https://imbedded-csrma-ai-agent.onrender.com/healthz |
+| **Frontend** | https://elspaniard97.github.io/csrma-agent/ |
+| **Backend** | https://csrma-agent.onrender.com |
+| **Health Check** | https://csrma-agent.onrender.com/healthz |
 
 ---
 
@@ -488,7 +488,7 @@ SOFTWARE.
 IT Infrastructure / Automation / AI-assisted Operations
 
 - GitHub: [@elspaniard97](https://github.com/elspaniard97)
-- Project: [imbedded-csrma-ai-agent](https://github.com/elspaniard97/imbedded-csrma-ai-agent)
+- Project: [imbedded-csrma-ai-agent](https://github.com/elspaniard97/csrma-agent)
 
 ---
 
@@ -504,7 +504,7 @@ IT Infrastructure / Automation / AI-assisted Operations
 ## 📞 Support
 
 For issues, questions, or feature requests:
-- Open an issue: [GitHub Issues](https://github.com/elspaniard97/imbedded-csrma-ai-agent/issues)
+- Open an issue: [GitHub Issues](https://github.com/elspaniard97/csrma-agent/issues)
 - Check existing issues before creating new ones
 - Provide detailed reproduction steps for bugs
 
