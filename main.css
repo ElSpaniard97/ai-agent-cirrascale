@@ -459,3 +459,120 @@ html[data-theme="light"] .field.row{
   gap:10px;
   padding-top:8px;
 }
+/* =========================
+   ChatGPT-like Layout
+========================= */
+.appLayout{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns: 320px 1fr;
+  gap:0;
+}
+
+/* Sidebar */
+.sidebar{
+  position:sticky;
+  top:0;
+  height:100vh;
+  overflow:auto;
+  border-right:1px solid var(--border);
+  background: rgba(0,0,0,.06);
+  padding:14px;
+}
+
+html[data-theme="light"] .sidebar{
+  background: rgba(255,255,255,.65);
+}
+
+.sidebarHeader{
+  padding:8px 6px 14px;
+}
+
+.sidebarTitle{
+  font-weight:900;
+  letter-spacing:-0.02em;
+}
+
+.sidebarSubtitle{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:2px;
+}
+
+.sidebarSection{
+  margin-top:12px;
+  padding:12px;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.sidebarLabel{
+  font-size:12px;
+  font-weight:900;
+  color:var(--muted);
+  margin-bottom:10px;
+}
+
+.sidebarPresets{
+  display:grid;
+  gap:10px;
+}
+
+.sidebarActions{
+  display:grid;
+  gap:10px;
+}
+
+.sidebarFooter{
+  margin-top:12px;
+  padding:12px;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+/* Main panel */
+.mainPanel{
+  padding:18px;
+  max-width: 1100px;
+  width:100%;
+  margin:0 auto;
+}
+
+.topHeader{
+  margin-bottom:12px;
+  padding:0 2px;
+}
+
+.topTitle{
+  margin:0;
+  font-size:22px;
+  letter-spacing:-0.02em;
+}
+
+.topSubtitle{
+  margin:6px 0 0;
+  color:var(--muted);
+}
+/* Chat height: resemble ChatGPT */
+.chatWrap{ margin-bottom:12px; }
+.chat{
+  min-height: calc(100vh - 260px);
+}
+
+/* Responsive: collapse sidebar on small screens */
+@media (max-width: 920px){
+  .appLayout{ grid-template-columns: 1fr; }
+  .sidebar{
+    position:relative;
+    height:auto;
+    border-right:none;
+    border-bottom:1px solid var(--border);
+  }
+  .mainPanel{ padding:14px; }
+  .chat{ min-height: 52vh; }
+}
+
