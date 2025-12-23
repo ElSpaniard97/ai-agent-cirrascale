@@ -6,7 +6,7 @@
   <title>AI Infrastructure Troubleshooting</title>
   <meta name="description" content="Restricted access. Login required." />
 
-  <link rel="stylesheet" href="./main.css?v=3" />
+  <link rel="stylesheet" href="./main.css?v=4" />
 
   <style>
     /* Minimal preflight / fallback */
@@ -37,21 +37,8 @@
         </div>
 
         <form id="loginForm" style="display:grid; gap:10px; margin-top:14px;">
-          <input
-            id="loginUser"
-            class="input"
-            placeholder="Username"
-            autocomplete="username"
-            required
-          />
-          <input
-            id="loginPass"
-            class="input"
-            placeholder="Password"
-            type="password"
-            autocomplete="current-password"
-            required
-          />
+          <input id="loginUser" class="input" placeholder="Username" autocomplete="username" required />
+          <input id="loginPass" class="input" placeholder="Password" type="password" autocomplete="current-password" required />
           <button class="btn primary" type="submit">Login</button>
           <div class="footnote" id="authStatus"></div>
         </form>
@@ -64,77 +51,97 @@
   </div>
 
   <!-- APP (hidden until authenticated) -->
-  <main id="appShell" class="container hidden">
-    <header class="header">
-      <div class="brand">
-        <div class="logo">AI</div>
-        <div>
-          <h1>Infrastructure Troubleshooting</h1>
-          <p>Diagnostics-first. Approval-gated remediation. Paste logs/scripts or upload screenshots.</p>
+  <main id="appShell" class="appLayout hidden">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" aria-label="Controls">
+      <div class="sidebarHeader">
+        <div class="brand">
+          <div class="logo">AI</div>
+          <div>
+            <div class="sidebarTitle">Infra Agent</div>
+            <div class="sidebarSubtitle">Diagnostics-first</div>
+          </div>
         </div>
       </div>
-    </header>
 
-    <!-- Top bar -->
-    <section class="card controls" aria-label="Mode and actions">
-      <div class="left">
+      <div class="sidebarSection">
         <span class="pill" id="modePill">Mode: Diagnostics</span>
 
-        <label class="toggle" title="Enable only if you approve production-impacting remediation">
-          <input type="checkbox" id="approveToggle" />
-          <span class="toggleUi" aria-hidden="true"></span>
+        <label class="toggle" title="Enable only if you approve production-impacting remediation" style="width:100%; justify-content:space-between;">
           <span class="toggleText">Remediation approved</span>
+          <span style="display:flex; align-items:center; gap:10px;">
+            <input type="checkbox" id="approveToggle" />
+            <span class="toggleUi" aria-hidden="true"></span>
+          </span>
         </label>
-
-        <button class="btn secondary" type="button" id="logoutBtn" title="Sign out">Logout</button>
       </div>
 
-      <div class="right">
-        <button class="btn secondary" type="button" id="copyTicketBtn">Copy Ticket Notes</button>
-        <button class="btn secondary" type="button" id="exportTxtBtn">Export TXT</button>
-        <button class="btn secondary" type="button" id="exportJsonBtn">Export JSON</button>
+      <div class="sidebarSection">
+        <div class="sidebarLabel">Presets</div>
+        <div class="sidebarPresets" aria-label="Preset intake templates">
+          <button class="chip" type="button" data-preset="network">Network</button>
+          <button class="chip" type="button" data-preset="server">Server</button>
+          <button class="chip" type="button" data-preset="script">Script</button>
+          <button class="chip" type="button" data-preset="hardware">Hardware</button>
+        </div>
+        <div class="hint" style="margin:8px 0 0;">Use a preset to generate a structured intake template.</div>
       </div>
-    </section>
 
-    <!-- Presets -->
-    <section class="card presets" aria-label="Preset intake templates">
-      <button class="chip" type="button" data-preset="network">Network</button>
-      <button class="chip" type="button" data-preset="server">Server</button>
-      <button class="chip" type="button" data-preset="script">Script</button>
-      <button class="chip" type="button" data-preset="hardware">Hardware</button>
-      <span class="hint">Use a preset to generate a structured intake template.</span>
-    </section>
-
-    <!-- Chat -->
-    <section class="card chatWrap" aria-label="Chat">
-      <div class="chat" id="chat" aria-label="Chat transcript"></div>
-    </section>
-
-    <!-- Composer -->
-    <section class="card composerWrap" aria-label="Message input">
-      <form class="composer" id="form">
-        <label class="fileBtn" title="Attach a screenshot (no secrets)">
-          <input type="file" id="image" accept="image/*" />
-          Attach screenshot
-        </label>
-
-        <textarea
-          id="message"
-          class="input"
-          rows="3"
-          placeholder="Describe the issue or paste logs/errors/scriptsâ€¦"
-          required
-        ></textarea>
-
-        <button class="btn primary" type="submit" id="sendBtn">Send</button>
-      </form>
-
-      <div class="footnote">
-        Do not paste secrets (keys/passwords). Outputs are designed to be ticket-safe.
+      <div class="sidebarSection">
+        <div class="sidebarLabel">Actions</div>
+        <div class="sidebarActions" id="sidebarActions">
+          <button class="btn secondary" type="button" id="copyTicketBtn">Copy Ticket Notes</button>
+          <button class="btn secondary" type="button" id="exportTxtBtn">Export TXT</button>
+          <button class="btn secondary" type="button" id="exportJsonBtn">Export JSON</button>
+        </div>
       </div>
-    </section>
 
-    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+      <div class="sidebarFooter">
+        <button class="btn secondary" type="button" id="logoutBtn" title="Sign out" style="width:100%;">Logout</button>
+        <div class="footnote" style="margin-top:10px;">
+          Do not paste secrets (keys/passwords). Outputs are designed to be ticket-safe.
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CHAT PANEL -->
+    <section class="mainPanel" aria-label="Chat panel">
+      <header class="topHeader">
+        <div>
+          <h1 class="topTitle">Infrastructure Troubleshooting</h1>
+          <p class="topSubtitle">Paste logs/scripts or upload screenshots. Remediation requires explicit approval.</p>
+        </div>
+      </header>
+
+      <section class="card chatWrap" aria-label="Chat">
+        <div class="chat" id="chat" aria-label="Chat transcript"></div>
+      </section>
+
+      <section class="card composerWrap" aria-label="Message input">
+        <form class="composer" id="form">
+          <label class="fileBtn" title="Attach a screenshot (no secrets)">
+            <input type="file" id="image" accept="image/*" />
+            Attach screenshot
+          </label>
+
+          <textarea
+            id="message"
+            class="input"
+            rows="3"
+            placeholder="Describe the issue or paste logs/errors/scripts..."
+            required
+          ></textarea>
+
+          <button class="btn primary" type="submit" id="sendBtn">Send</button>
+        </form>
+
+        <div class="footnote">
+          Do not paste secrets (keys/passwords). Outputs are designed to be ticket-safe.
+        </div>
+      </section>
+
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </section>
   </main>
 
   <!-- Backend URLs -->
@@ -143,6 +150,6 @@
     window.LOGIN_URL = "https://csrma-agent.onrender.com/auth/login";
   </script>
 
-  <script src="./app.js?v=3"></script>
+  <script src="./app.js?v=4"></script>
 </body>
 </html>
