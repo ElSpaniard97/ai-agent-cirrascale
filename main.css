@@ -576,3 +576,228 @@ html[data-theme="light"] .sidebar{
   .chat{ min-height: 52vh; }
 }
 
+/* =========================
+   Screenshot-inspired UX layer
+========================= */
+
+/* Main panel spacing: more “roomy” like the screenshot */
+.mainPanel{
+  padding: 18px 22px 110px; /* bottom space for sticky composer */
+  max-width: 1160px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.topHeader{ margin: 6px 0 14px; }
+.topTitle{
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: -0.02em;
+}
+.topSubtitle{
+  margin: 6px 0 0;
+  color: var(--muted);
+}
+
+/* Hero card */
+.heroCard{
+  padding: 22px;
+  margin-bottom: 14px;
+}
+
+.heroTitle{
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+.heroSubtitle{
+  margin-top: 8px;
+  color: var(--muted);
+  max-width: 860px;
+  line-height: 1.45;
+}
+
+/* Preset grid */
+.presetGrid{
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+@media (max-width: 1100px){
+  .presetGrid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px){
+  .presetGrid{ grid-template-columns: 1fr; }
+}
+
+/* Preset card styling */
+.presetCard{
+  border: 1px solid var(--border);
+  background: rgba(0,0,0,.10);
+  border-radius: calc(var(--radius) + 4px);
+  padding: 16px;
+  text-align: left;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: transform .12s ease, border-color .12s ease, background .12s ease;
+}
+
+html[data-theme="light"] .presetCard{
+  background: rgba(255,255,255,.55);
+}
+
+.presetCard:hover{
+  transform: translateY(-1px);
+  border-color: rgba(120,170,255,.35);
+  background: rgba(60,110,200,.10);
+}
+
+.presetHeader{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+html[data-theme="light"] .presetHeader{
+  border-bottom: 1px solid rgba(10,20,40,.10);
+}
+
+.presetIcon{
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.10);
+  font-weight: 900;
+}
+
+html[data-theme="light"] .presetIcon{
+  border: 1px solid rgba(10,20,40,.12);
+  background: rgba(10,20,40,.04);
+}
+
+.presetName{
+  font-weight: 900;
+  font-size: 18px;
+}
+
+.presetDesc{
+  margin-top: 10px;
+  color: var(--muted);
+  line-height: 1.45;
+  min-height: 60px;
+}
+
+.presetCta{
+  margin-top: 14px;
+  width: 100%;
+  text-align: center;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(70,120,220,.45);
+  border: 1px solid rgba(120,170,255,.25);
+  font-weight: 900;
+}
+
+/* Chat panel: keep it tall but not infinite */
+.chatWrap{ margin-bottom: 14px; }
+.chat{
+  min-height: 42vh;
+}
+
+/* Sticky composer dock (ChatGPT-style) */
+.composerDock{
+  position: sticky;
+  bottom: 14px;
+  z-index: 20;
+}
+
+.composerWrap{
+  padding: 12px;
+}
+
+.composer{
+  display: grid;
+  grid-template-columns: 56px 1fr 120px;
+  gap: 12px;
+  align-items: stretch;
+}
+
+@media (max-width: 640px){
+  .composer{
+    grid-template-columns: 56px 1fr;
+    grid-template-rows: auto auto;
+  }
+  .sendBtn{
+    grid-column: 1 / -1;
+  }
+}
+
+/* Attachment button matches screenshot (+) */
+.attachBtn{
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(0,0,0,.10);
+  cursor: pointer;
+  user-select: none;
+}
+
+.attachBtn input{ display:none; }
+
+.attachPlus{
+  font-size: 26px;
+  font-weight: 900;
+  opacity: .85;
+}
+
+.composerInput{
+  border-radius: 14px;
+  padding: 14px 14px;
+  resize: none;
+  min-height: 56px;
+}
+
+.sendBtn{
+  border-radius: 14px;
+  font-weight: 900;
+}
+
+.composerFootnote{
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Sidebar: cleaner rail + dividers */
+.sidebar{
+  padding: 14px 12px;
+  border-right: 1px solid rgba(255,255,255,.08);
+  background: rgba(0,0,0,.14);
+}
+
+html[data-theme="light"] .sidebar{
+  border-right: 1px solid rgba(10,20,40,.10);
+  background: rgba(255,255,255,.55);
+}
+
+.sidebarSection{
+  box-shadow: none;                /* flatter like the screenshot */
+  background: rgba(0,0,0,.10);
+}
+
+html[data-theme="light"] .sidebarSection{
+  background: rgba(255,255,255,.55);
+}
+
