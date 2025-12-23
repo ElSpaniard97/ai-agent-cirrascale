@@ -251,10 +251,12 @@ async function apiDeleteScript(id) {
    Utility buttons + Modals
 ========================= */
 function ensureUtilityButtons() {
-  const controlsLeft = document.querySelector(".controls .left");
-  const controlsRight = document.querySelector(".controls .right");
-  if (!controlsLeft || !controlsRight) return;
+  // New layout targets
+  const sidebarActions = document.getElementById("sidebarActions");
+  const sidebarTopSection = document.querySelector(".sidebarSection"); // first section with mode/toggle
+  if (!sidebarActions || !sidebarTopSection) return;
 
+  // Clear button (goes above exports for quick access)
   if (!document.getElementById("clearChatBtn")) {
     const clearBtn = document.createElement("button");
     clearBtn.id = "clearChatBtn";
@@ -262,7 +264,43 @@ function ensureUtilityButtons() {
     clearBtn.className = "btn secondary";
     clearBtn.textContent = "Clear";
     clearBtn.addEventListener("click", () => clearConversation(true));
-    controlsRight.prepend(clearBtn);
+
+    // Put Clear at top of Actions list
+    sidebarActions.prepend(clearBtn);
+  }
+
+  // Scripts button (goes in sidebar top section, near mode/toggle)
+  if (!document.getElementById("scriptsBtn")) {
+    const scriptsBtn = document.createElement("button");
+    scriptsBtn.id = "scriptsBtn";
+    scriptsBtn.type = "button";
+    scriptsBtn.className = "btn secondary";
+    scriptsBtn.textContent = "Scripts";
+    scriptsBtn.title = "Upload/select saved scripts to reference during troubleshooting";
+    scriptsBtn.style.width = "100%";
+    scriptsBtn.addEventListener("click", () => openScriptsModal());
+
+    sidebarTopSection.appendChild(document.createElement("div")).style.height = "10px";
+    sidebarTopSection.appendChild(scriptsBtn);
+  }
+
+  // Settings button (also in sidebar top section)
+  if (!document.getElementById("settingsBtn")) {
+    const settingsBtn = document.createElement("button");
+    settingsBtn.id = "settingsBtn";
+    settingsBtn.type = "button";
+    settingsBtn.className = "btn secondary";
+    settingsBtn.textContent = "Settings";
+    settingsBtn.style.width = "100%";
+    settingsBtn.addEventListener("click", () => openSettingsModal());
+
+    sidebarTopSection.appendChild(settingsBtn);
+  }
+
+  injectModalCssOnce();
+  ensureSettingsModal();
+  ensureScriptsModal();
+
   }
 
   if (!document.getElementById("scriptsBtn")) {
