@@ -1088,3 +1088,62 @@ html[data-theme="light"] .toggleUi::after{
   overflow: hidden;
   text-overflow: ellipsis;
 }
+/* ==========================================================
+   FIX: Collapsed sidebar content bleeding / overlapping main
+   - Lock sidebar width
+   - Disable horizontal overflow
+   - Force children to shrink within the rail
+========================================================== */
+
+/* Authoritative grid + widths (beats earlier duplicates) */
+.appLayout{
+  grid-template-columns: var(--sidebar-expanded) minmax(0, 1fr) !important;
+}
+.sidebar{
+  width: var(--sidebar-expanded) !important;
+  overflow-x: hidden !important;  /* key: no sideways bleed */
+}
+.mainPanel{
+  min-width: 0 !important;
+}
+
+html[data-sidebar="collapsed"] .appLayout{
+  grid-template-columns: var(--sidebar-collapsed) minmax(0, 1fr) !important;
+}
+html[data-sidebar="collapsed"] .sidebar{
+  width: var(--sidebar-collapsed) !important;
+  overflow-x: hidden !important;  /* key: no sideways bleed */
+}
+
+/* Force all sidebar descendants to respect the rail width */
+.sidebar,
+.sidebar *{
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Make buttons/blocks shrink instead of overflowing */
+.sidebar .sidebarSection,
+.sidebar .pill,
+.sidebar .toggle,
+.sidebar .chip,
+.sidebar .btn{
+  width: 100%;
+}
+
+/* In collapsed mode, prevent long text from pushing width.
+   Option A: wrap aggressively (keeps text visible) */
+html[data-sidebar="collapsed"] .sidebar .chip,
+html[data-sidebar="collapsed"] .sidebar .btn{
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  text-align: center;
+}
+
+/* In collapsed mode, hide the Mode/Remediation block (prevents awkward clipped toggle).
+   If you prefer to keep it, delete this section. */
+html[data-sidebar="collapsed"] .sidebar .sidebarSection:first-of-type{
+  display: none;
+}
