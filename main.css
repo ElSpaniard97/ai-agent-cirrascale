@@ -1061,3 +1061,55 @@ html[data-theme="light"] ::-webkit-scrollbar-thumb{ background: rgba(10,20,40,.1
   align-self: end;       /* aligns to bottom edge of the grid row */
   border-radius: var(--radius-sm);
 }
+/* =========================
+   FIX: Sidebar collapse causes elements to shift columns
+   Force explicit grid placement + safe sizing
+========================= */
+:root{
+  --sidebar-expanded: 320px;
+  --sidebar-collapsed: 76px;
+}
+
+/* Ensure appLayout is the final, authoritative grid definition */
+.appLayout{
+  display: grid;
+  grid-template-columns: var(--sidebar-expanded) minmax(0, 1fr);
+  gap: 0;
+}
+
+/* Force each area into its intended column */
+.sidebar{
+  grid-column: 1 / 2;
+  width: var(--sidebar-expanded);
+}
+
+.mainPanel{
+  grid-column: 2 / 3;
+  min-width: 0; /* critical: prevents overflow pushing layout */
+}
+
+/* Collapsed */
+html[data-sidebar="collapsed"] .appLayout{
+  grid-template-columns: var(--sidebar-collapsed) minmax(0, 1fr);
+}
+
+html[data-sidebar="collapsed"] .sidebar{
+  width: var(--sidebar-collapsed);
+}
+
+/* Sidebar header alignment (prevents header row oddities) */
+.sidebarHeaderRow{
+  align-items: center;
+}
+
+/* Mobile: stacked layout remains correct */
+@media (max-width: 920px){
+  .appLayout{
+    grid-template-columns: 1fr;
+  }
+  .sidebar,
+  .mainPanel{
+    grid-column: 1 / -1;
+    width: auto;
+  }
+}
