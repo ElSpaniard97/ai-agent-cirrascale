@@ -45,6 +45,10 @@
 
   /* Focus ring */
   --ring: 0 0 0 3px rgba(59,130,246,.35);
+
+  /* Sidebar widths (single source of truth) */
+  --sidebar-expanded: 320px;
+  --sidebar-collapsed: 76px;
 }
 
 /* System-based theme defaults */
@@ -73,24 +77,7 @@
 
 /* Explicit overrides */
 html[data-theme="dark"]{
-  --bg: #0b1220;
-
-  --text: rgba(255,255,255,.92);
-  --text-strong: rgba(255,255,255,.96);
-  --muted: rgba(255,255,255,.68);
-  --muted-2: rgba(255,255,255,.58);
-
-  --surface-1: rgba(255,255,255,.05);
-  --surface-2: rgba(255,255,255,.08);
-  --surface-3: rgba(255,255,255,.10);
-
-  --border: rgba(255,255,255,.10);
-  --border-strong: rgba(255,255,255,.16);
-
-  --shadow-sm: 0 6px 18px rgba(0,0,0,.18);
-  --shadow: 0 10px 30px rgba(0,0,0,.25);
-
-  --ring: 0 0 0 3px rgba(59,130,246,.35);
+  /* Dark matches base tokens; kept for explicit override support */
 }
 html[data-theme="light"]{
   --bg: #f6f8fc;
@@ -369,9 +356,9 @@ textarea.input.expanded{
 }
 
 /* =========================
-   Chat
+   Chat (base)
 ========================= */
-.chatWrap{ padding:0; }
+.chatWrap{ padding:0; margin-bottom:12px; }
 
 .chat{
   min-height:52vh;
@@ -402,9 +389,20 @@ textarea.input.expanded{
 }
 
 /* =========================
-   Composer (legacy)
+   Composer (baseline + fixed)
 ========================= */
-.composerWrap{ padding:16px; }
+.composerDock{
+  position: sticky;
+  bottom: 14px;
+  z-index: 20;
+}
+
+.composerWrap{
+  /* unified: keep padding/radius and prevent clipping */
+  padding: 16px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
 
 .composer{
   display:flex;
@@ -412,6 +410,9 @@ textarea.input.expanded{
   flex-wrap:wrap;
   align-items:stretch;
 }
+
+/* In CSS grid, inputs can overflow unless you allow them to shrink */
+.composer > *{ min-width: 0; }
 
 .fileBtn{
   display:inline-flex;
@@ -578,17 +579,19 @@ html[data-theme="light"] .field.row{
 }
 
 /* =========================
-   ChatGPT-like Layout
+   ChatGPT-like Layout (authoritative)
 ========================= */
 .appLayout{
   min-height:100vh;
   display:grid;
-  grid-template-columns: 320px 1fr;
+  grid-template-columns: var(--sidebar-expanded) minmax(0, 1fr);
   gap:0;
+  transition: grid-template-columns 180ms var(--ease);
 }
 
 /* Sidebar */
 .sidebar{
+  grid-column: 1 / 2;
   position:sticky;
   top:0;
   height:100vh;
@@ -596,6 +599,7 @@ html[data-theme="light"] .field.row{
   border-right:1px solid var(--border);
   padding:14px 12px;
   background: rgba(0,0,0,.14);
+  width: var(--sidebar-expanded);
 }
 
 html[data-theme="light"] .sidebar{
@@ -660,23 +664,44 @@ html[data-theme="light"] .sidebarSection{
 html[data-theme="light"] .sidebarFooter{
   background: rgba(255,255,255,.55);
 }
+
+/* Main panel (merged from both definitions; preserves latest "roomy" UX layer) */
+.mainPanel{
+  grid-column: 2 / 3;
+  min-width: 0;
+  padding: 18px 22px 110px; /* bottom space for sticky composer */
+  max-width: 1160px;
+  width:100%;
+  margin:0 auto;
+}
+
+/* Top header */
+.topHeader{ margin: 6px 0 14px; padding:0 2px; }
+
+.topTitle{
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: -0.02em;
+  color: var(--text-strong);
+}
+
+.topSubtitle{
+  margin: 6px 0 0;
+  color: var(--muted);
+}
+
+/* Chat height: resemble ChatGPT (kept as an override) */
+.chat{
+  min-height: calc(100vh - 260px);
+}
+
 /* =========================
    Collapsible Sidebar
 ========================= */
-:root{
-  --sidebar-expanded: 320px;
-  --sidebar-collapsed: 76px;
-}
-
-.appLayout{
-  grid-template-columns: var(--sidebar-expanded) 1fr;
-  transition: grid-template-columns 180ms var(--ease);
-}
-
 /* Toggle button styling */
 .sidebarHeaderRow{
   display:flex;
-  align-items:flex-start;
+  align-items:center;
   justify-content:space-between;
   gap:10px;
 }
@@ -709,10 +734,11 @@ html[data-theme="light"] .sidebarFooter{
 
 /* Collapsed state */
 html[data-sidebar="collapsed"] .appLayout{
-  grid-template-columns: var(--sidebar-collapsed) 1fr;
+  grid-template-columns: var(--sidebar-collapsed) minmax(0, 1fr);
 }
 
 html[data-sidebar="collapsed"] .sidebar{
+  width: var(--sidebar-collapsed);
   padding: 14px 10px;
 }
 
@@ -748,84 +774,9 @@ html[data-sidebar="collapsed"] #sidebarToggle .iconChevron{
   transform: rotate(180deg);
 }
 
-/* On small screens, keep current responsive behavior (sidebar becomes top section) */
-@media (max-width: 920px){
-  html[data-sidebar="collapsed"] .appLayout{
-    grid-template-columns: 1fr;
-  }
-  html[data-sidebar="collapsed"] .sidebar .sidebarBrandText,
-  html[data-sidebar="collapsed"] .sidebar .sidebarLabel,
-  html[data-sidebar="collapsed"] .sidebar .toggleText{
-    display: initial !important; /* don’t hide on mobile stacked layout */
-  }
-}
-
-/* Main panel */
-.mainPanel{
-  padding:18px;
-  max-width: 1100px;
-  width:100%;
-  margin:0 auto;
-}
-
-.topHeader{
-  margin-bottom:12px;
-  padding:0 2px;
-}
-
-.topTitle{
-  margin:0;
-  font-size:22px;
-  letter-spacing:-0.02em;
-  color: var(--text-strong);
-}
-
-.topSubtitle{
-  margin:6px 0 0;
-  color:var(--muted);
-}
-
-/* Chat height: resemble ChatGPT */
-.chatWrap{ margin-bottom:12px; }
-.chat{
-  min-height: calc(100vh - 260px);
-}
-
-/* Responsive: collapse sidebar on small screens */
-@media (max-width: 920px){
-  .appLayout{ grid-template-columns: 1fr; }
-  .sidebar{
-    position:relative;
-    height:auto;
-    border-right:none;
-    border-bottom:1px solid var(--border);
-  }
-  .mainPanel{ padding:14px; }
-  .chat{ min-height: 52vh; }
-}
-
 /* =========================
    Screenshot-inspired UX layer
 ========================= */
-
-/* Main panel spacing: more “roomy” like the screenshot */
-.mainPanel{
-  padding: 18px 22px 110px; /* bottom space for sticky composer */
-  max-width: 1160px;
-  width: 100%;
-  margin: 0 auto;
-}
-
-.topHeader{ margin: 6px 0 14px; }
-.topTitle{
-  margin: 0;
-  font-size: 28px;
-  letter-spacing: -0.02em;
-}
-.topSubtitle{
-  margin: 6px 0 0;
-  color: var(--muted);
-}
 
 /* Hero card */
 .heroCard{
@@ -937,23 +888,12 @@ html[data-theme="light"] .presetHeader{
   color: var(--text-strong);
 }
 
-/* Chat panel: keep it tall but not infinite */
-.chatWrap{ margin-bottom: 14px; }
+/* Chat panel: keep it tall but not infinite (kept) */
 .chat{
   min-height: 42vh;
 }
 
 /* Sticky composer dock (ChatGPT-style) */
-.composerDock{
-  position: sticky;
-  bottom: 14px;
-  z-index: 20;
-}
-
-.composerWrap{
-  padding: 12px;
-}
-
 .composer{
   display: grid;
   grid-template-columns: 56px 1fr 120px;
@@ -961,26 +901,18 @@ html[data-theme="light"] .presetHeader{
   align-items: stretch;
 }
 
-@media (max-width: 640px){
-  .composer{
-    grid-template-columns: 56px 1fr;
-    grid-template-rows: auto auto;
-  }
-  .sendBtn{
-    grid-column: 1 / -1;
-  }
-}
-
 /* Attachment button (+) */
 .attachBtn{
   display: grid;
   place-items: center;
-  border-radius: var(--radius);
+  border-radius: var(--radius-sm);
   border: 1px solid var(--border);
   background: var(--surface-1);
   cursor: pointer;
   user-select: none;
   transition: background var(--speed) var(--ease), border-color var(--speed) var(--ease);
+  height: 56px;          /* matches composerInput min-height */
+  align-self: end;       /* aligns to bottom edge of the grid row */
 }
 .attachBtn:hover{
   background: var(--surface-2);
@@ -995,15 +927,19 @@ html[data-theme="light"] .presetHeader{
 }
 
 .composerInput{
-  border-radius: var(--radius);
+  border-radius: var(--radius-sm);
   padding: 14px 14px;
   resize: none;
   min-height: 56px;
+  width: 100%;
+  min-width: 0;
 }
 
 .sendBtn{
-  border-radius: var(--radius);
+  border-radius: var(--radius-sm);
   font-weight: 900;
+  height: 56px;
+  align-self: end;
 }
 
 .composerFootnote{
@@ -1013,6 +949,17 @@ html[data-theme="light"] .presetHeader{
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+/* Small screens: composer stacks */
+@media (max-width: 640px){
+  .composer{
+    grid-template-columns: 56px 1fr;
+    grid-template-rows: auto auto;
+  }
+  .sendBtn{
+    grid-column: 1 / -1;
+  }
 }
 
 /* =========================
@@ -1032,84 +979,31 @@ html[data-theme="light"] ::-webkit-scrollbar-thumb{ background: rgba(10,20,40,.1
 ::-webkit-scrollbar-track{ background: transparent; }
 
 /* =========================
-   FIX: Composer buttons clipping into card corners
+   Responsive: collapse sidebar on small screens (single, merged)
 ========================= */
-.composerWrap{
-  /* give the contents breathing room from the rounded corners */
-  padding: 16px;
-  border-radius: var(--radius-lg);
-
-  /* ensures children never visually protrude past the card radius */
-  overflow: hidden;
-}
-
-/* In CSS grid, inputs can overflow unless you allow them to shrink */
-.composer > *{
-  min-width: 0;
-}
-
-/* Ensure the textarea truly behaves like a grid item */
-.composerInput{
-  width: 100%;
-  min-width: 0;
-}
-
-/* Make left (+) and right (Send) align cleanly with the textarea */
-.attachBtn,
-.sendBtn{
-  height: 56px;          /* matches composerInput min-height */
-  align-self: end;       /* aligns to bottom edge of the grid row */
-  border-radius: var(--radius-sm);
-}
-/* =========================
-   FIX: Sidebar collapse causes elements to shift columns
-   Force explicit grid placement + safe sizing
-========================= */
-:root{
-  --sidebar-expanded: 320px;
-  --sidebar-collapsed: 76px;
-}
-
-/* Ensure appLayout is the final, authoritative grid definition */
-.appLayout{
-  display: grid;
-  grid-template-columns: var(--sidebar-expanded) minmax(0, 1fr);
-  gap: 0;
-}
-
-/* Force each area into its intended column */
-.sidebar{
-  grid-column: 1 / 2;
-  width: var(--sidebar-expanded);
-}
-
-.mainPanel{
-  grid-column: 2 / 3;
-  min-width: 0; /* critical: prevents overflow pushing layout */
-}
-
-/* Collapsed */
-html[data-sidebar="collapsed"] .appLayout{
-  grid-template-columns: var(--sidebar-collapsed) minmax(0, 1fr);
-}
-
-html[data-sidebar="collapsed"] .sidebar{
-  width: var(--sidebar-collapsed);
-}
-
-/* Sidebar header alignment (prevents header row oddities) */
-.sidebarHeaderRow{
-  align-items: center;
-}
-
-/* Mobile: stacked layout remains correct */
 @media (max-width: 920px){
-  .appLayout{
+  .appLayout{ grid-template-columns: 1fr; }
+
+  .sidebar{
+    position:relative;
+    height:auto;
+    width: auto;
+    border-right:none;
+    border-bottom:1px solid var(--border);
+  }
+
+  .mainPanel{ padding:14px 14px 110px; }
+  .chat{ min-height: 52vh; }
+
+  /* On small screens, keep current responsive behavior (sidebar becomes top section) */
+  html[data-sidebar="collapsed"] .appLayout{
     grid-template-columns: 1fr;
   }
-  .sidebar,
-  .mainPanel{
-    grid-column: 1 / -1;
-    width: auto;
+
+  /* Don’t hide on mobile stacked layout */
+  html[data-sidebar="collapsed"] .sidebar .sidebarBrandText,
+  html[data-sidebar="collapsed"] .sidebar .sidebarLabel,
+  html[data-sidebar="collapsed"] .sidebar .toggleText{
+    display: initial !important;
   }
 }
