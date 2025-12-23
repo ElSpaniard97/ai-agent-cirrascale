@@ -106,43 +106,93 @@
 
     <!-- MAIN CHAT PANEL -->
     <section class="mainPanel" aria-label="Chat panel">
-      <header class="topHeader">
-        <div>
-          <h1 class="topTitle">Infrastructure Troubleshooting</h1>
-          <p class="topSubtitle">Paste logs/scripts or upload screenshots. Remediation requires explicit approval.</p>
+  <header class="topHeader">
+    <div>
+      <h1 class="topTitle">Infrastructure Troubleshooting</h1>
+      <p class="topSubtitle">Paste logs/scripts or upload screenshots. Remediation requires explicit approval.</p>
+    </div>
+  </header>
+
+  <!-- Investigation starter card (matches screenshot) -->
+  <section class="card heroCard" aria-label="Start a new investigation">
+    <div class="heroTitle">Start a new investigation</div>
+    <div class="heroSubtitle">
+      Most tickets start here. Select a preset to generate a structured intake template for troubleshooting.
+    </div>
+
+    <div class="presetGrid" aria-label="Preset intake templates">
+      <button class="presetCard" type="button" data-preset="network">
+        <div class="presetHeader">
+          <span class="presetIcon">◌</span>
+          <span class="presetName">Network</span>
         </div>
-      </header>
+        <div class="presetDesc">Investigate switch/router issues, VLANs, routing, packet loss, and more.</div>
+        <div class="presetCta">Load Template</div>
+      </button>
 
-      <section class="card chatWrap" aria-label="Chat">
-        <div class="chat" id="chat" aria-label="Chat transcript"></div>
-      </section>
-
-      <section class="card composerWrap" aria-label="Message input">
-        <form class="composer" id="form">
-          <label class="fileBtn" title="Attach a screenshot (no secrets)">
-            <input type="file" id="image" accept="image/*" />
-            Attach screenshot
-          </label>
-
-          <textarea
-            id="message"
-            class="input"
-            rows="3"
-            placeholder="Describe the issue or paste logs/errors/scripts..."
-            required
-          ></textarea>
-
-          <button class="btn primary" type="submit" id="sendBtn">Send</button>
-        </form>
-
-        <div class="footnote">
-          Do not paste secrets (keys/passwords). Outputs are designed to be ticket-safe.
+      <button class="presetCard" type="button" data-preset="server">
+        <div class="presetHeader">
+          <span class="presetIcon">≡</span>
+          <span class="presetName">Server</span>
         </div>
-      </section>
+        <div class="presetDesc">Diagnose Linux/Windows issues, logs, CPU/memory/disk, services.</div>
+        <div class="presetCta">Load Template</div>
+      </button>
 
-      <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    </section>
-  </main>
+      <button class="presetCard" type="button" data-preset="script">
+        <div class="presetHeader">
+          <span class="presetIcon">&lt;/&gt;</span>
+          <span class="presetName">Script</span>
+        </div>
+        <div class="presetDesc">Debug PowerShell, Python, Bash, IaC, validate YAML/JSON.</div>
+        <div class="presetCta">Load Template</div>
+      </button>
+
+      <button class="presetCard" type="button" data-preset="hardware">
+        <div class="presetHeader">
+          <span class="presetIcon">▦</span>
+          <span class="presetName">Hardware</span>
+        </div>
+        <div class="presetDesc">Check server alerts, RAID status, iLO/iDRAC logs, ECC memory.</div>
+        <div class="presetCta">Load Template</div>
+      </button>
+    </div>
+  </section>
+
+  <!-- Chat transcript -->
+  <section class="card chatWrap" aria-label="Chat">
+    <div class="chat" id="chat" aria-label="Chat transcript"></div>
+  </section>
+
+  <!-- Sticky composer (matches screenshot layout) -->
+  <section class="composerDock" aria-label="Message input">
+    <div class="card composerWrap">
+      <form class="composer" id="form">
+        <label class="attachBtn" title="Attach a screenshot (no secrets)">
+          <input type="file" id="image" accept="image/*" />
+          <span class="attachPlus">+</span>
+        </label>
+
+        <textarea
+          id="message"
+          class="input composerInput"
+          rows="2"
+          placeholder="Describe the issue or paste logs/errors/scripts..."
+          required
+        ></textarea>
+
+        <button class="btn primary sendBtn" type="submit" id="sendBtn">Send</button>
+      </form>
+
+      <div class="composerFootnote">
+        Do not paste secrets (keys/passwords). Outputs are designed to be ticket-safe.
+      </div>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </section>
+</section>
+
 
   <!-- Backend URLs -->
   <script>
