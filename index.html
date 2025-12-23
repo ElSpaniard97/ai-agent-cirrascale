@@ -53,16 +53,22 @@
   <!-- APP (hidden until authenticated) -->
   <main id="appShell" class="appLayout hidden">
     <!-- SIDEBAR -->
-    <aside class="sidebar" aria-label="Controls">
-      <div class="sidebarHeader">
-        <div class="brand">
-          <div class="logo">AI</div>
-          <div>
-            <div class="sidebarTitle">Jenko</div>
-            <div class="sidebarSubtitle">Diagnostics-first</div>
-          </div>
-        </div>
+    <div class="sidebarHeader">
+  <div class="sidebarHeaderRow">
+    <div class="brand">
+      <div class="logo">AI</div>
+      <div class="sidebarBrandText">
+        <div class="sidebarTitle">Jenko</div>
+        <div class="sidebarSubtitle">Diagnostics-first</div>
       </div>
+    </div>
+
+    <button class="iconBtn" type="button" id="sidebarToggle" aria-label="Collapse sidebar" title="Collapse sidebar">
+      <span class="iconChevron" aria-hidden="true">❮</span>
+    </button>
+  </div>
+</div>
+
 
       <div class="sidebarSection">
         <span class="pill" id="modePill">Mode: Diagnostics</span>
